@@ -7,7 +7,6 @@ import matplotlib.pyplot as pot
 root = Tk()
 root.geometry("500x100")
 root.title("Charter")
-#root.iconbitmap()
 root.config(bg = "black")
 root.resizable(False,False)
 root.eval('tk::PlaceWindow . center')
@@ -29,14 +28,16 @@ def char_creation():
     y_label = s_entry2.get()
     xlist = [str(item) for item in x_label.split(",")]
     ylist= [int(item) for item in y_label.split(",")]
+    x= np.array(xlist)
+    y= np.array(ylist)
     if chartype1 == 'Bar':
-        pot.bar(xlist,ylist)
+        pot.bar(x,y)
         pot.title(main_title)
     elif chartype1 == 'Point':
-        pot.plot(xlist,ylist)
+        pot.plot(x,y)
         pot.title(main_title)
     elif chartype1 == 'Pie':
-        pot.pie(ylist, colors=xlist)
+        pot.pie(y, colors=xlist)
         pot.title(main_title)
     pot.show()
 
@@ -50,6 +51,9 @@ e1 = Entry(root, textvariable=s_entry1,selectbackground="Blue", selectforeground
 e2 = Entry(root, textvariable=s_entry2,selectbackground="Blue", selectforeground="white", font=("Calibri", 20), width= 20)
 b2 = Button(root, text="Submit",activebackground="black",activeforeground="white",borderwidth=0,font=("Calibri", 20), width= 10,command=char_creation)
 b2.place(x=200, y= 280, height= 40)
+
+def default():
+    root.geometry("500x100")
 
 def settingforxy():
     root.geometry("500x350")
@@ -72,6 +76,10 @@ def ok():
     if chrttype == 'Bar':
         settingforxy()
         
+    elif chrttype == 'Select':
+        default()
+        messagebox.showerror('Error', 'Select a Valid Chart!')
+
     elif chrttype == 'Pie':
         root.geometry("500x350")
         title.set("Title")
@@ -90,17 +98,18 @@ def ok():
     elif chrttype == 'Point':
         settingforxy()
     else:
-        messagebox.showerror("Error","Select a Valid Chart")
+        messagebox.showerror("Error","Select a Valid Chart!")
 
 chartlabel = Label(root, text="Chart Type", bg = "black", fg="white", font=("Fandomonium", 20))
 chartlabel.place(x=10, y = 50)
 chartype.set("Select")
 chart_select = ttk.Combobox(root,textvariable=chartype ,state="readonly", font=("Calibri", 15))
-chart_select['values'] = ['Bar',
+chart_select['values'] = ['Select',
+                            'Bar',
                           'Point',
                           'Pie']
 chart_select.place(x=160,y=50)
-b1 = Button(root, text="Ok", font=("calibri", 10), borderwidth=0, width=7, activebackground="black",activeforeground="white", command=ok)
+b1 = Button(root, text="OK", font=("calibri", 10), borderwidth=0, width=7, activebackground="black",activeforeground="white", command=ok)
 b1.place(x=400,y=50, height=30)
 
 

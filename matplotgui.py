@@ -5,8 +5,9 @@ import numpy as np
 import matplotlib.pyplot as pot
 
 root = Tk()
+root.iconbitmap("assets/logo/matplotgui.ico")
 root.geometry("500x100")
-root.title("Charter")
+root.title("MatplotGUI")
 root.config(bg = "black")
 root.resizable(False,False)
 root.eval('tk::PlaceWindow . center')
@@ -26,8 +27,12 @@ def char_creation():
     main_title = t_entry.get()
     x_label = s_entry1.get()
     y_label = s_entry2.get()
-    xlist = [str(item) for item in x_label.split(",")]
-    ylist= [int(item) for item in y_label.split(",")]
+    try:
+        xlist = [str(item.strip()) for item in x_label.split(",")]
+        ylist = [int(item.strip()) for item in y_label.split(",")]
+    except ValueError:
+        messagebox.showerror("Input Error", "Make sure your values are comma-separated without letters in Y-axis!")
+        return
     x= np.array(xlist)
     y= np.array(ylist)
     if chartype1 == 'Bar':
@@ -43,9 +48,9 @@ def char_creation():
 
 
 
-title1 = Label(root, textvariable=title, bg="black", fg="white",font=("Fandomonium", 20))
-l1 = Label(root,textvariable=label_for_x, bg="black", fg="white", font=("Fandomonium", 20))
-l2 = Label(root,textvariable=label_for_y, bg="black", fg="white", font=("Fandomonium", 20))
+title1 = Label(root, textvariable=title, bg="black", fg="white",font=("Calibri", 20))
+l1 = Label(root,textvariable=label_for_x, bg="black", fg="white", font=("Calibri", 20))
+l2 = Label(root,textvariable=label_for_y, bg="black", fg="white", font=("Calibri", 20))
 title_entry = Entry(root, textvariable=t_entry,selectbackground="Blue", selectforeground="white", font=("Calibri", 20), width= 20)
 e1 = Entry(root, textvariable=s_entry1,selectbackground="Blue", selectforeground="white", font=("Calibri", 20), width= 20)
 e2 = Entry(root, textvariable=s_entry2,selectbackground="Blue", selectforeground="white", font=("Calibri", 20), width= 20)
@@ -100,7 +105,7 @@ def ok():
     else:
         messagebox.showerror("Error","Select a Valid Chart!")
 
-chartlabel = Label(root, text="Chart Type", bg = "black", fg="white", font=("Fandomonium", 20))
+chartlabel = Label(root, text="Chart Type", bg = "black", fg="white", font=("Calibri", 20))
 chartlabel.place(x=10, y = 50)
 chartype.set("Select")
 chart_select = ttk.Combobox(root,textvariable=chartype ,state="readonly", font=("Calibri", 15))

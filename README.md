@@ -16,7 +16,7 @@
 
 ## 🖼️ Preview
 
-![MatplotGUI Screenshot](assets/screenshots/screenshot.png) <!-- Replace with your screenshot path -->
+![MatplotGUI Screenshot](assets/screenshots/Screenshot.png) <!-- Replace with your screenshot path -->
 
 ---
 

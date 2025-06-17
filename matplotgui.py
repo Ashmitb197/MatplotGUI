@@ -3,9 +3,31 @@ from tkinter import ttk
 from tkinter import messagebox
 import numpy as np
 import matplotlib.pyplot as pot
+import os
+import sys
+
 
 root = Tk()
-root.iconbitmap("assets/logo/matplotgui.ico")
+
+# Handle icon setting for both script and .exe (PyInstaller)
+def set_icon():
+    try:
+        if getattr(sys, 'frozen', False):
+            # If bundled by PyInstaller (.exe)
+            base_path = sys._MEIPASS  # Extracted temp dir
+        else:
+            # When running as .py
+            base_path = os.path.abspath(".")
+
+        icon_path = os.path.join(base_path, "assets", "logo", "matplotgui.ico")
+        root.iconbitmap(icon_path)
+    except Exception as e:
+        print(f"[Icon Load Failed] {e}")
+
+set_icon()
+
+
+
 root.geometry("500x100")
 root.title("MatplotGUI")
 root.config(bg = "black")
